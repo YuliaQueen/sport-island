@@ -1,0 +1,20 @@
+{
+  "repositories": [
+    {
+      "type": "composer",
+      "url" : "https://wpackagist.org"
+    }
+  ],
+  "extra": {
+    "installer-paths": {
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+    }
+  },
+  "require": {
+    "wpackagist-plugin/advanced-custom-fields": "^5.9",
+    "wpackagist-plugin/contact-form-7": "^5.3",
+    "wpackagist-plugin/hc-custom-wp-admin-url": "^1.4",
+    "wpackagist-plugin/rus-to-lat-advanced": "^1.1"
+  }
+}
