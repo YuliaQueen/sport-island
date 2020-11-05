@@ -30,61 +30,63 @@
     <header class="main-header">
         <div class="wrapper main-header__wrap">
             <p class="main-header__logolink">
-                <?php the_custom_logo(); ?>
+				<?php the_custom_logo(); ?>
                 <span class="slogan">Твой фитнес клуб всегда рядом!</span>
             </p>
-            <?php $locations = get_nav_menu_locations();
-            $menu_id = $locations['menu-footer'];
-            $menu_items = wp_get_nav_menu_items(
-                $menu_id,
-                [
-                    'order' => 'ASC',
-                    'orderby' => 'menu_order'
-                ]
-            );
-            ?>
+			<?php $locations = get_nav_menu_locations();
+			$menu_id         = $locations['menu-footer'];
+			$menu_items      = wp_get_nav_menu_items(
+				$menu_id,
+				[
+					'order'   => 'ASC',
+					'orderby' => 'menu_order'
+				]
+			);
+			?>
             <nav class="main-navigation">
                 <ul class="main-navigation__list">
-                    <?php
+					<?php
 
-                    $http_s = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 's' : '') . '://';
-                    $url = $http_s . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+					$http_s = 'http' . ( ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ) ? 's' : '' ) . '://';
+					$url    = $http_s . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
-                    foreach (
-                        $menu_items as $item
-                    ):
-                        $class_text = '';
-                        if ($item->url === $url) {
-                            $class_text = 'class="active"';
-                        }
-                        ?>
+					foreach (
+						$menu_items as $item
+					):
+						$class_text = '';
+						if ( $item->url === $url ) {
+							$class_text = 'class="active"';
+						}
+						?>
                         <li <?php echo $class_text; ?>>
                             <a href="<?= $item->url ?>"><?= $item->title ?></a>
                         </li>
-                    <?php endforeach; ?>
+					<?php endforeach; ?>
                 </ul>
             </nav>
-            <?php if (is_active_sidebar('si-footer')) {
-                dynamic_sidebar('si-footer');
-            } ?>
+			<?php if ( is_active_sidebar( 'si-footer' ) ) {
+				dynamic_sidebar( 'si-footer' );
+			} ?>
         </div>
     </header>
     <footer class="main-footer wrapper">
         <div class="row main-footer__row">
             <div class="main-footer__widget main-footer__widget_copyright">
-                <span class="widget-text"> <?php if (is_active_sidebar('si-footer-column-1')) {
-                        dynamic_sidebar('si-footer-column-1');
-                    } ?> </span>
+                <span class="widget-text"> <?php if ( is_active_sidebar( 'si-footer-column-1' ) ) {
+		                dynamic_sidebar( 'si-footer-column-1' );
+	                } ?> </span>
             </div>
             <div class="main-footer__widget">
-                <?php if (is_active_sidebar('si-footer-column-2')) {
-                    dynamic_sidebar('si-footer-column-2');
-                } ?>
+                <p class="widget-contact-mail">
+					<?php if ( is_active_sidebar( 'si-footer-column-2' ) ) {
+						dynamic_sidebar( 'si-footer-column-2' );
+					} ?>
+                </p>
             </div>
             <div class="main-footer__widget main-footer__widget_social">
-                <?php if (is_active_sidebar('si-footer-column-3')) {
-                    dynamic_sidebar('si-footer-column-3');
-                } ?>
+				<?php if ( is_active_sidebar( 'si-footer-column-3' ) ) {
+					dynamic_sidebar( 'si-footer-column-3' );
+				} ?>
             </div>
         </div>
     </footer>

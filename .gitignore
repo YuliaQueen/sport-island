@@ -1,30 +1,31 @@
 #-----WORDPRESS-----
-# ignore everything in the root except the "wp-content" directory.
+# игнор всех папок проекта, исключая папку wp-content
 !wp-content/
 
-# ignore everything in the "wp-content" directory, except:
+# игнор всех файлов в папке "wp-content", исключая папки wp-content/mu-plugins/, wp-content/plugins/, wp-content/themes/:
 # "mu-plugins", "plugins", "themes" directory
 wp-content/*
 !wp-content/mu-plugins/
 !wp-content/plugins/
 !wp-content/themes/
 
-# ignore these plugins
+# игнор этого плагина
 wp-content/plugins/hello.php
 
-# ignore specific themes
+# игнор дефолтных тем
 wp-content/themes/twenty*/
 
-# ignore node dependency directories
+# игнор зависимостей node
 node_modules/
 
-# ignore log files and databases
+# игнор логфайлов и файлов базы данных
 *.log
 *.sql
 *.sqlite
 
+# игнор папки vendor
 vendor/
 
 
 # WEBSTORM AND PHPSTORM
-idea
+.idea/

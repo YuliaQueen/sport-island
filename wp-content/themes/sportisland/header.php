@@ -16,6 +16,7 @@ if (!is_front_page()) {
 }
 ?>
 <body class="<?php echo $body_class; ?>">
+
 <header class="main-header">
     <div class="wrapper main-header__wrap">
         <?php the_custom_logo(); ?>
