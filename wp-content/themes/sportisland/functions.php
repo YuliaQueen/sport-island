@@ -17,6 +17,8 @@ add_action( 'after_setup_theme', 'si_setup' );
 add_action( 'wp_enqueue_scripts', 'si_scripts' );
 add_action( 'widgets_init', 'si_register' );
 add_action( 'init', 'si_register_types' );
+add_action( 'add_meta_boxes', 'si_meta_boxes' );
+add_action( 'save_post', 'si_save_likes_meta' );
 
 add_shortcode( 'si-past-link', 'si_past_link' );
 
@@ -223,7 +225,7 @@ function si_register_types() {
 		                    'rewrite'       => true,
 		                    'query_var'     => true,
 	                    ] );
-	register_post_type( 'shedule',
+	register_post_type( 'schedule',
 	                    [
 		                    'label'         => null,
 		                    'labels'        => [
@@ -275,6 +277,48 @@ function si_register_types() {
 		                    'rewrite'       => true,
 		                    'query_var'     => true,
 	                    ] );
+	register_taxonomy( 'schedule_days',
+	                   [ 'schedule' ],
+	                   [
+		                   'label'        => '',
+		                   // определяется параметром $labels->name
+		                   'labels'       => [
+			                   'name'          => 'Дни недели',
+			                   'singular_name' => 'Дни недели',
+			                   'search_items'  => 'Поиск дня недели',
+			                   'all_items'     => 'Все дни',
+			                   'view_item '    => 'Посмотреть день недели',
+			                   'edit_item'     => 'Редактировать дни недели',
+			                   'update_item'   => 'Обновить дни недели',
+			                   'add_new_item'  => 'Добавить день недели',
+			                   'new_item_name' => 'Новый день недели',
+			                   'menu_name'     => 'Дни недели',
+		                   ],
+		                   'description'  => '',
+		                   'public'       => true,
+		                   'hierarchical' => true,
+	                   ] );
+	register_taxonomy( 'places',
+	                   [ 'schedule' ],
+	                   [
+		                   'label'        => '',
+		                   // определяется параметром $labels->name
+		                   'labels'       => [
+			                   'name'          => 'Залы',
+			                   'singular_name' => 'Залы',
+			                   'search_items'  => 'Поиск зала',
+			                   'all_items'     => 'Все залы',
+			                   'view_item '    => 'Посмотреть залы',
+			                   'edit_item'     => 'Редактировать зал',
+			                   'update_item'   => 'Обновить залы',
+			                   'add_new_item'  => 'Добавить зал',
+			                   'new_item_name' => 'Новый зал',
+			                   'menu_name'     => 'Залы',
+		                   ],
+		                   'description'  => '',
+		                   'public'       => true,
+		                   'hierarchical' => true,
+	                   ] );
 	register_post_type( 'prices',
 	                    [
 		                    'label'         => null,
@@ -410,6 +454,28 @@ function si_past_link( $attr ) {
 		return "<a href=\"{$link}\"> {$text} </a>";
 	} else {
 		return '';
+	}
+}
+
+function si_meta_boxes() {
+	add_meta_box(
+		'si-like',
+		'Количество лайков:',
+		'si_meta_like_cb',
+		'post'
+	);
+}
+
+function si_meta_like_cb( $post_obj ) {
+	$likes = get_post_meta( $post_obj->ID, 'si-like', true );
+	$likes = $likes ? $likes : 0;
+	echo "<input type='text' name='si-like' value=\"{$likes}\">";
+//	echo '<p>' . $likes . '</p>';
+}
+
+function si_save_likes_meta( $post_id ) {
+	if ( isset( $_POST['si-like'] ) ) {
+		update_post_meta( $post_id, 'si-like', $_POST['si-like'] );
 	}
 }
 
